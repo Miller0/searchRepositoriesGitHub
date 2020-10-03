@@ -3,6 +3,8 @@
 
 namespace models;
 
+use OAuthProvider;
+use system\DB;
 use system\Model;
 
 class UserModel extends Model
@@ -104,14 +106,16 @@ class UserModel extends Model
                   `email`,
                   `surName`,
                   `lastName`,
-                  `password`
+                  `password`,
+                  `token`
                   )
                 VALUES (
                   :login,
                   :email,
                   :surName,
                   :lastName,
-                  :password
+                  :password,
+                  :token
                 )";
 
             $args = [
@@ -119,7 +123,8 @@ class UserModel extends Model
                 'email' => $this->email,
                 'surName' => $this->surName,
                 'lastName' => $this->login,
-                'password' => self::passwordHash($this->password)
+                'password' => self::passwordHash($this->password),
+                'token' => self::getToken(20)
             ];
 
             $this->db::sql($query, $args);
@@ -136,6 +141,12 @@ class UserModel extends Model
     {
         return password_hash($pass, PASSWORD_DEFAULT);
 
+    }
+
+    public static function getToken($size)
+    {
+        $bytes = openssl_random_pseudo_bytes($size, $cstrong);
+        return bin2hex($bytes);
     }
 
 
@@ -161,5 +172,4 @@ class UserModel extends Model
 
         return false;
     }
-
 }

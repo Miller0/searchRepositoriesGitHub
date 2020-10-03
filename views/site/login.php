@@ -19,8 +19,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/views/layouts/header.php");
                     <button class="btn btn-success" name="do_login" type="submit">Авторизоваться</button>
                 </form>
                 <br>
-                <p>Если вы еще не зарегистрированы, тогда нажмите <a href="signup.php">здесь</a>.</p>
-                <p>Вернуться на <a href="index.php">главную</a>.</p>
+                <p>Если вы еще не зарегистрированы, тогда нажмите <a href="/site/signup">здесь</a>.</p>
+                <p>Вернуться на <a href="/">главную</a>.</p>
             </div>
         </div>
 

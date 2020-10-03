@@ -66,9 +66,9 @@ use system\App;
                 <? endif;?>
 
             </ul>
-            <form class="form-inline my-2 my-lg-0" id="searchGitHub">
-                <input class="form-control mr-sm-2" type="search" id = 'searchGitHub-q' placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <form class="form-inline my-2 my-lg-0" id="searchGitHub" action="/home/getrepositories" method="get">
+                <input name="q" class="form-control mr-sm-2" type="text" id = 'searchGitHub-q' placeholder="Search" aria-label="Search">
+                <input type="submit" value="Search" class="btn btn-outline-success my-2 my-sm-0">
             </form>
         </div>
     </nav>

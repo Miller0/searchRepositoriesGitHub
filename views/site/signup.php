@@ -27,8 +27,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/views/layouts/header.php");
                     <button class="btn btn-success" name="doSignup" type="submit">Зарегистрировать</button>
                 </form>
                 <br>
-                <p>Если вы зарегистрированы, тогда нажмите <a href="login.php">здесь</a>.</p>
-                <p>Вернуться на <a href="index.php">главную</a>.</p>
+                <p>Если вы зарегистрированы, тогда нажмите <a href="/site/login">здесь</a>.</p>
+                <p>Вернуться на <a href="/">главную</a>.</p>
             </div>
         </div>
 

@@ -35,6 +35,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/views/layouts/header.php");
 <script>
 
     $(function () {
+        <? if(!empty($q)) :?>
+        search('<?=$q?>');
+        <?endif;?>
         sort()
     });
 
@@ -112,14 +115,14 @@ include($_SERVER['DOCUMENT_ROOT'] . "/views/layouts/header.php");
                         fullName: dataAll['full_name'],
                         description: dataAll['description'],
                         language: dataAll['language'],
-                        stargazersCount: dataAll['stargazersCount'],
+                        stargazersCount: dataAll['stargazers_count'],
                         created_at: dataAll['created_at'],
                         updated_at: dataAll['updated_at'],
                         htmlUrl: dataAll['html_url'],
                     }
             },
             success: function (data, status, xhr) {
-                if(data === 'ok')
+                if (data === 'ok')
                     alert('Сохранено');
                 else
                     alert('Ошибка');

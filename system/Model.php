@@ -2,7 +2,7 @@
 
 namespace system;
 
-use DB;
+
 
 class Model
 {

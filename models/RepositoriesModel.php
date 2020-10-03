@@ -55,7 +55,7 @@ class RepositoriesModel extends Model
                 'fullName' => $this->fullName,
                 'description' => $this->description,
                 'languages' => $this->language,
-                'stargazersCount' => $this->stargazersCount,
+                'stargazersCount' => intval($this->stargazersCount),
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
                 'htmlUrl' => $this->htmlUrl

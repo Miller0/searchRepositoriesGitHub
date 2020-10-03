@@ -4,12 +4,14 @@
 namespace Controllers;
 
 
+use system\DB;
+
 class MigrationController
 {
 
     public function action()
     {
-        $db = new \DB();
+        $db = new DB();
 
        $result[] =  $db::sql('create table users (
                         id int (10) AUTO_INCREMENT,

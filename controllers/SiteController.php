@@ -2,9 +2,9 @@
 
 namespace Controllers;
 
-use DB;
 use models\UserModel;
 use system\Controller;
+use system\DB;
 
 class SiteController extends Controller
 {
@@ -14,7 +14,6 @@ class SiteController extends Controller
     public function action()
     {
             $this->actionMain();
-
     }
 
 
@@ -35,9 +34,8 @@ class SiteController extends Controller
                 $model->passwordRepeat = $data['passwordRepeat'];
 
                 if ($model->validate())
-                {
-                    $model->create();
-                }
+                    if($model->create())
+                        header('Location: /site/main');
             }
 
 
@@ -77,13 +75,7 @@ class SiteController extends Controller
     {
         try
         {
-
-            $db = New DB();
-            $id = 1;
-            $data = $db::getRow("SELECT * FROM `users` WHERE `id` = ?", [$id]);
-
-
-            $this->render('index', ['test' => 2]);
+            $this->render('index');
         }
         catch (\ErrorException $e)
         {

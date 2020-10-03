@@ -1,6 +1,12 @@
 <?php
 
+namespace system;
+
 use config\Config;
+use Exception;
+use PDO;
+use PDOException;
+use PDOStatement;
 
 /**
  * Class wrapper for working with PDO

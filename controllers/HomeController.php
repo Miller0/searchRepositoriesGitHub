@@ -6,7 +6,7 @@ use models\RepositoriesModel;
 use models\RepositoriesUsersModel;
 use system\App;
 use system\Controller;
-use system\view;
+use system\DB;
 
 
 class HomeController extends Controller
@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         try
         {
-            $this->render('repositories');
+            $this->render('repositories',['q' => $_GET['q'] ?? '']);
         }
         catch (\ErrorException $e)
         {
@@ -52,7 +52,7 @@ class HomeController extends Controller
             $model->updated_at = $data['updated_at'];
             $model->htmlUrl = $data['htmlUrl'];
 
-            $data = \DB::getRow("SELECT `id` FROM `repositories` WHERE `fullName` like ?", [$model->fullName]);
+            $data = DB::getRow("SELECT `id` FROM `repositories` WHERE `fullName` like ?", [$model->fullName]);
 
             if(empty($data['id']))
                 if ($model->validate())
@@ -68,7 +68,6 @@ class HomeController extends Controller
         catch (\ErrorException $e)
         {
         }
-
         return null;
     }
 }
