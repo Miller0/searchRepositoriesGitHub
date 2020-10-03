@@ -35,7 +35,7 @@ class App
         $controllerName = $controller;
 
         // Получаем имя действия
-        $action = $pathParts[$part+1];
+        $action = $pathParts[$part+1] ?? '';
         $action = explode('?', $action, 2);
         $action = ltrim($action[0]);
 
