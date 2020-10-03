@@ -19,7 +19,7 @@ class App
         $pathParts = explode('/', $path);
 
        //Перенаправляем на модуль
-        if ($pathParts[1] == 'api')
+        if (isset($pathParts[1]) && $pathParts[1]) == 'api')
         {
             $part = 2;
             $namespace = 'api';
