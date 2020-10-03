@@ -22,7 +22,7 @@ use system\App;
 <body class="d-flex flex-column">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">GitHub</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,11 +30,13 @@ use system\App;
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/site">Home <span class="sr-only">(current)</span></a>
                 </li>
+                <?php if (App::getUserId()) : ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="/home/getrepositories">Search</a>
                 </li>
+                <? endif;?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dropdown
@@ -53,10 +55,19 @@ use system\App;
                 <li class="nav-item">
                     <a class="nav-link" href="/site/logout">Выйти(<?=App::getUserLogin()?>)</a>
                 </li>
+                <? else:?>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/site/signup">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/site/login">Войти</a>
+                </li>
                 <? endif;?>
+
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="form-inline my-2 my-lg-0" id="searchGitHub">
+                <input class="form-control mr-sm-2" type="search" id = 'searchGitHub-q' placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>

@@ -48,6 +48,8 @@ class App
         $action = $objController->beforeAction($action);
         // Вызываем действие контроллера
         $result =  $objController->$action();
+        if(!empty($result))
+            echo $result;
     }
 
     /**

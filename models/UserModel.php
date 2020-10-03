@@ -15,6 +15,9 @@ class UserModel extends Model
     public $passwordRepeat;
 
 
+    /**
+     * @return bool
+     */
     public function validate()
     {
         $errors = array();
@@ -71,22 +74,32 @@ class UserModel extends Model
         return false;
     }
 
-
+    /**
+     * @return mixed
+     */
     public function searchForLogin()
     {
         $data = $this->db::getRow("SELECT * FROM `users` WHERE `login` like ?", [$this->login]);
         return $data;
     }
 
+    /**
+     * @return mixed
+     */
     public function searchForEmail()
     {
         $data = $this->db::getRow("SELECT * FROM `users` WHERE `email` like ?", [$this->email]);
         return $data;
     }
 
+    /**
+     * @return bool
+     */
     public function create()
     {
-        $query = "INSERT INTO `users` (
+        try
+        {
+            $query = "INSERT INTO `users` (
                   `login`,
                   `email`,
                   `surName`,
@@ -101,15 +114,22 @@ class UserModel extends Model
                   :password
                 )";
 
-        $args = [
-            'login' => $this->login,
-            'email' => $this->email,
-            'surName' => $this->surName,
-            'lastName' => $this->login,
-            'password' => self::passwordHash($this->password)
-        ];
+            $args = [
+                'login' => $this->login,
+                'email' => $this->email,
+                'surName' => $this->surName,
+                'lastName' => $this->login,
+                'password' => self::passwordHash($this->password)
+            ];
 
-        $this->db::sql($query, $args);
+            $this->db::sql($query, $args);
+            return true;
+        }
+        catch (\ErrorException $e)
+        {
+        }
+
+        return false;
     }
 
     public static function passwordHash($pass)
@@ -119,6 +139,9 @@ class UserModel extends Model
     }
 
 
+    /**
+     * @return bool
+     */
     public function signin()
     {
 

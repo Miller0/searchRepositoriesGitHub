@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use models\RepositoriesModel;
+use models\RepositoriesUsersModel;
 use system\App;
 use system\Controller;
 use system\view;
@@ -32,4 +34,41 @@ class HomeController extends Controller
         }
     }
 
+    /**
+     * @return string|null
+     */
+    public function actionSaveRepositories()
+    {
+        try
+        {
+            $model = new RepositoriesModel();
+            $data = $_GET['data'];
+
+            $model->fullName = $data['fullName'];
+            $model->description = $data['description'];
+            $model->language = $data['language'];
+            $model->stargazersCount = $data['stargazersCount'];
+            $model->created_at = $data['created_at'];
+            $model->updated_at = $data['updated_at'];
+            $model->htmlUrl = $data['htmlUrl'];
+
+            $data = \DB::getRow("SELECT `id` FROM `repositories` WHERE `fullName` like ?", [$model->fullName]);
+
+            if(empty($data['id']))
+                if ($model->validate())
+                   $data = $model->create();
+
+                    $modelUserRepositories = new RepositoriesUsersModel();
+                    $modelUserRepositories->idRepositories = $data['id'];
+
+                    if ($modelUserRepositories->validate())
+                        if ($modelUserRepositories->create())
+                            return 'ok';
+        }
+        catch (\ErrorException $e)
+        {
+        }
+
+        return null;
+    }
 }
