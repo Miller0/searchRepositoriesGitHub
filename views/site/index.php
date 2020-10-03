@@ -1,7 +1,9 @@
 <?php
+
+use system\App;
+
+$title="Главная"; // название формы
 include($_SERVER['DOCUMENT_ROOT'] . "/views/layouts/header.php");
-echo 2;
-echo $_GET['id'];
 ?>
 
 <div id="page-content">
@@ -22,6 +24,5 @@ echo $_GET['id'];
 
 
 <?php
-
 include($_SERVER['DOCUMENT_ROOT'] . "/views/layouts/footer.php");
 ?>

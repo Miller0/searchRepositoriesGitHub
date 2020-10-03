@@ -8,6 +8,7 @@ class Controller
 {
 
     public $name;
+    public $rules;
 
     /**
      * Controller constructor.
@@ -18,6 +19,17 @@ class Controller
         $this->name = $name;
     }
 
+    /**
+     * @param array $methods
+     */
+    function callMethodsAfterOne($methods = array())
+    {
+        foreach ($methods as $method => $arguments)
+        {
+            $arguments = $arguments ? $arguments : array(); //Check
+            call_user_func_array(array($this, $method), $arguments);
+        }
+    }
 
     /**
      * @param string $path
@@ -27,7 +39,7 @@ class Controller
     public function render(string $path, array $data = [])
     {
         // Получаем путь, где лежат все представления
-        $fullPath = __DIR__ . '/../views/'. $this->name . '/' . $path . '.php';
+        $fullPath = __DIR__ . '/../views/' . $this->name . '/' . $path . '.php';
 
         // Если представление не было найдено, выбрасываем исключение
         if (!file_exists($fullPath))
@@ -49,5 +61,31 @@ class Controller
         include($fullPath);
     }
 
+    /**
+     * @param $action
+     * @return string
+     */
+    public function beforeAction($action)
+    {
+        if (!empty($this->rules))
+        {
+            if (isset($this->rules['status']) && !empty($this->rules['status']))
+                if ($this->rules['status'] == 'user')
+                {
+                    if (empty(App::getUserId()))
+                        $action = 'action';
+                }
+                else
+                    $action = 'action';
+        }
+        else
+            $action = 'action';
+
+        return $action;
+    }
+
+    private function afterAction()
+    {
+    }
 
 }

@@ -35,7 +35,7 @@ class App
         }
 
         // Создаем экземпляр класса контроллера
-        $objController = new $controller;
+        $objController = new $controller('site');
 
         // Если действия у контроллера не существует, выбрасываем исключение
         if (!method_exists($objController, $action))
@@ -43,7 +43,46 @@ class App
             throw new \ErrorException('action does not exist');
         }
 
+
+        $action = $objController->beforeAction($action);
         // Вызываем действие контроллера
-        $objController->$action();
+        $result =  $objController->$action();
     }
+
+    /**
+     * @return bool|int
+     */
+    public static function getUserId()
+    {
+        if (isset($_SESSION['loggedUser']) && !empty($_SESSION['loggedUser']))
+            if (isset($_SESSION['loggedUser']['id']) && !empty($_SESSION['loggedUser']['id']))
+                return intval($_SESSION['loggedUser']['id']);
+
+        return false;
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public static function getUser()
+    {
+        if (isset($_SESSION['loggedUser']) && !empty($_SESSION['loggedUser']))
+            if (isset($_SESSION['loggedUser']['id']) && !empty($_SESSION['loggedUser']['id']))
+                return $_SESSION['loggedUser'];
+
+        return [];
+    }
+
+    /**
+     * @return string
+     */
+    public static function getUserLogin()
+    {
+        if (isset($_SESSION['loggedUser']) && !empty($_SESSION['loggedUser']))
+            if (isset($_SESSION['loggedUser']['login']) && !empty($_SESSION['loggedUser']['login']))
+                return $_SESSION['loggedUser']['login'];
+
+        return '';
+    }
+
 }
