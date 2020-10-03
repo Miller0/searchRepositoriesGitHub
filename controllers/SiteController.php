@@ -4,20 +4,17 @@ namespace Controllers;
 
 use DB;
 use models\UserModel;
-use system\App;
 use system\Controller;
 
 class SiteController extends Controller
 {
-    public $rules = ['status' => 'user'];
+    public $rules = ['status' => 'guest'];
 
 
     public function action()
     {
-        if (App::getUserId())
             $this->actionMain();
-        else
-            $this->actionLogin();
+
     }
 
 
@@ -64,6 +61,7 @@ class SiteController extends Controller
             {
                 $model->login = $data['login'];
                 $model->password = $data['password'];
+                unset($_SESSION['loggedUser']);
 
                 if ($model->signin())
                     header('Location: /site/main');

@@ -75,8 +75,10 @@ class Controller
                     if (empty(App::getUserId()))
                         $action = 'action';
                 }
-                else
-                    $action = 'action';
+                elseif($this->rules['status'] == 'guest')
+                {
+                    $test =1 ;
+                }
         }
         else
             $action = 'action';

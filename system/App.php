@@ -19,6 +19,7 @@ class App
         $pathParts = explode('/', $path);
         // Получаем имя контроллера
         $controller = $pathParts[1];
+        $controllerName = $controller;
         // Получаем имя действия
         $action = $pathParts[2];
         $action = explode('?', $action, 2);
@@ -35,7 +36,7 @@ class App
         }
 
         // Создаем экземпляр класса контроллера
-        $objController = new $controller('site');
+        $objController = new $controller($controllerName);
 
         // Если действия у контроллера не существует, выбрасываем исключение
         if (!method_exists($objController, $action))

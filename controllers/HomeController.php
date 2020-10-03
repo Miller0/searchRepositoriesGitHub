@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use system\App;
 use system\Controller;
 use system\view;
 
@@ -9,14 +10,26 @@ use system\view;
 class HomeController extends Controller
 {
 
-    public function actionMain()
+    public $rules = ['status' => 'user'];
+
+    public function action()
+    {
+        if (App::getUserId())
+            $this->actionMain();
+        else
+            header('Location: /site/login');
+
+    }
+
+    public function actionGetRepositories()
     {
         try
         {
-            $this->render('index');
+            $this->render('repositories');
         }
         catch (\ErrorException $e)
         {
         }
     }
+
 }
