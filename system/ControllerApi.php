@@ -143,8 +143,8 @@ abstract class ControllerApi
                 $auth = $headers['Authorization'];
                 $auth_array = explode(" ", $auth);
                 $un_pw = explode(":", base64_decode($auth_array[1]));
-                $un = $un_pw[0];
-                $pw = $un_pw[1];
+                $un = $un_pw[0] ?? '';
+                $pw = $un_pw[1] ?? '';
 
                 return $un;
         }
