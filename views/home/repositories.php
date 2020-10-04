@@ -74,6 +74,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/views/layouts/header.php");
         })
             .done(function (data) {
 
+                if(data['items'].length == 0)
+                    alert('Ничего не найденно');
+
                 $('#table_sort_body tr').remove();
                 $('#table_sort_head th').removeAttr('data-order');
                 $('#table_sort_head th').removeAttr('class');

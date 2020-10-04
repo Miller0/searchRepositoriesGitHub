@@ -39,7 +39,7 @@ class UserController extends ControllerApi
             $type = array_shift($this->requestUri);
             if ($type == 'save')
             {
-                $result = $this->db->getRows("SELECT fullName,description,languages,stargazersCount,htmlUrl,created_at,updated_at 
+                $result = $this->db->getRows("SELECT r.id,fullName,description,languages,stargazersCount,htmlUrl,created_at,updated_at 
                               FROM repositories as r
                               LEFT JOIN repositoriesUsers as ru
                               ON r.id = ru.idRepositories
@@ -68,8 +68,29 @@ class UserController extends ControllerApi
         // TODO: Implement actionCreate() method.
     }
 
-    protected function actionDelete()
+    /**
+     * @return false|string
+     */
+    public function actionDelete()
     {
-        // TODO: Implement actionDelete() method.
+        try
+        {
+            $parse_url = parse_url($this->requestUri[1]);
+            $id = $parse_url['path'] ?? null;
+            $type = array_shift($this->requestUri);
+
+            if ($type == 'save' && !empty($id))
+            {
+                $sql = "DELETE FROM `repositoriesUsers` WHERE `idUser` = :idUser and `idRepositories` = :idRepositories ";
+
+                $this->db::sql($sql, ['idRepositories' => $id, 'idUser' => App::getUserId()]);
+
+                return $this->response('ok', 200);
+            }
+        }
+        catch (\ErrorException $e)
+        {
+        }
+        return $this->response('', 404);
     }
 }

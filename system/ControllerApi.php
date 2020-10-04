@@ -21,6 +21,8 @@ abstract class ControllerApi
 
     public function __construct()
     {
+        header("Access-Control-Allow-Orgin: *");
+        header("Access-Control-Allow-Methods: *");
         header("Content-Type: application/json");
         $this->db = new DB();
 
@@ -138,11 +140,13 @@ abstract class ControllerApi
         $headers = apache_request_headers();
         if (isset($headers['Authorization']))
         {
-            $matches = array();
-            preg_match('/Token token="(.*)"/', $headers['Authorization'], $matches);
-            if (isset($matches[1]))
-                return $token = $matches[1];
+                $auth = $headers['Authorization'];
+                $auth_array = explode(" ", $auth);
+                $un_pw = explode(":", base64_decode($auth_array[1]));
+                $un = $un_pw[0];
+                $pw = $un_pw[1];
 
+                return $un;
         }
         return '';
     }

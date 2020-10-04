@@ -34,6 +34,17 @@ class HomeController extends Controller
         }
     }
 
+    public function actionMySaves()
+    {
+        try
+        {
+            $this->render('saveRepositories');
+        }
+        catch (\ErrorException $e)
+        {
+        }
+    }
+
     /**
      * @return string|null
      */

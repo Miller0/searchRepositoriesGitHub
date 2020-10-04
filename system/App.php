@@ -119,4 +119,16 @@ class App
         return $data;
     }
 
+    /**
+     * @return string
+     */
+    public static function getUserToken()
+    {
+        if (isset($_SESSION['loggedUser']) && !empty($_SESSION['loggedUser']))
+            if (isset($_SESSION['loggedUser']['token']) && !empty($_SESSION['loggedUser']['token']))
+                return $_SESSION['loggedUser']['token'];
+
+        return '';
+    }
+
 }
