@@ -21,8 +21,6 @@ abstract class ControllerApi
 
     public function __construct()
     {
-        header("Access-Control-Allow-Orgin: *");
-        header("Access-Control-Allow-Methods: *");
         header("Content-Type: application/json");
         $this->db = new DB();
 
