@@ -3,8 +3,6 @@
 
 namespace models;
 
-use OAuthProvider;
-use system\DB;
 use system\Model;
 
 class UserModel extends Model
