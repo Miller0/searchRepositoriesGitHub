@@ -128,7 +128,9 @@ class UserModel extends Model
             ];
 
             $this->db::sql($query, $args);
-            return true;
+            $user = $this->db::getRow("SELECT * FROM `users` WHERE `login` like ?", [$this->login]);
+            $_SESSION['loggedUser'] = $user;
+            return $user;
         }
         catch (\ErrorException $e)
         {
